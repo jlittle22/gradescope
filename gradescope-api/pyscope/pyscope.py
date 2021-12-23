@@ -102,7 +102,6 @@ class GSConnection():
     def get_assignments_listing(self, cid):
         return self.account.get_assignments_listing(cid)
 
-
     def get_assignment_statistics(self, cid, aid):
         return self.account.get_assignment(cid, aid)
 
