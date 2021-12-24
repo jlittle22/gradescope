@@ -56,11 +56,9 @@ class GSAccount():
     def get_courses_listing(self):
         courses_dict = { "instructor_courses" : {}, "student_courses" : {} }
         for cid, course_info in self.instructor_courses.items():
-            print(cid, course_info)
             courses_dict["instructor_courses"][cid] = { "name" : course_info.name, "shortname" : course_info.shortname, "year" : course_info.year }
 
         for course in self.student_courses.items():
-            print(cid, course_info)
             courses_dict["student_courses"][cid] = { "name" : course_info.name, "shortname" : course_info.shortname, "year" : course_info.year }
 
         return courses_dict
