@@ -12,11 +12,15 @@ import sys
 import threading, time
 
 sys.path.append('../gradescope-api/pyscope')
+sys.path.append('./db_manager')
+
+from DBManager import DBManager
 
 from pyscope import GSConnection
 
 # Configuration variables
 GRADESCOPE_SAMPLING_RATE = 60
+db_manager = DBManager()
 
 # Establish Gradescope connection
 print("Booting GSConnection and attempting login...")
@@ -33,7 +37,8 @@ else:
 def retrieve_gradescope_data():
 	while True:
 	    start = time.perf_counter()
-	    print(json.dumps(gs_session.get_assignment_statistics(cid="308721", aid="1725053"), indent=4, sort_keys=True))
+	    data = json.dumps(gs_session.get_assignment_statistics(cid="308721", aid="1725053"), indent=4, sort_keys=True)
+	    db_manager.insertSourceData(data)
 	    time.sleep(max(GRADESCOPE_SAMPLING_RATE - (time.perf_counter() - start), 0))
 
 thread = threading.Thread(target=retrieve_gradescope_data)
@@ -67,6 +72,7 @@ def upload_assignment_file():
 
 @app.route("/completion_leaders", methods=['GET'])
 def completion_leaders():
+	data = db_manager.getSourceData()
 	pass # get top completion leaders for this assignment
 
 

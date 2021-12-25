@@ -13,6 +13,9 @@ class DBManager:
         # inserts / updates current statistics document
         pass
 
+    def getSourceData(self):
+        pass
+
     def setTargetAssignment(self, cid, aid):
         pass 
     
