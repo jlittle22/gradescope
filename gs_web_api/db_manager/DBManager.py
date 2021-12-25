@@ -3,12 +3,18 @@ from random import randint
 import json
 
 class DBManager:
-    
     def _db_insert(self, db, collectionName, obj):
         return db[collectionName].insert_one(obj)    
 
     def insertAssignment(self, courseId, assignmentJSON):
         return self._db_insert(self.courses, courseId, assignmentJSON)
+
+    def insertSourceData(self, statisticsJSON):
+        # inserts / updates current statistics document
+        pass
+
+    def setTargetAssignment(self, cid, aid):
+        pass 
     
     def listAssignmentIds(self, courseId):
         # assignmentId is subject to change

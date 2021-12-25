@@ -18,7 +18,6 @@ from pyscope import GSConnection
 # Configuration variables
 GRADESCOPE_SAMPLING_RATE = 60
 
-
 # Establish Gradescope connection
 print("Booting GSConnection and attempting login...")
 gs_session = GSConnection()
@@ -32,10 +31,10 @@ else:
 
 # Activate Gradescope data sampling
 def retrieve_gradescope_data():
-	start = time.perf_counter()
-	gs_session.get_assignment_statistics(cid="308721", aid="1725053")
-	time.sleep(max(GRADESCOPE_SAMPLING_RATE - (time.perf_counter() - start), 0))
-	retrieve_gradescope_data()
+	while True:
+	    start = time.perf_counter()
+	    print(json.dumps(gs_session.get_assignment_statistics(cid="308721", aid="1725053"), indent=4, sort_keys=True))
+	    time.sleep(max(GRADESCOPE_SAMPLING_RATE - (time.perf_counter() - start), 0))
 
 thread = threading.Thread(target=retrieve_gradescope_data)
 thread.start()

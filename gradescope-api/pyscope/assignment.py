@@ -124,7 +124,8 @@ class GSAssignment():
             if len(td_elems) == 0:
                 continue
             submission_data["sub_rank"] = td_elems[0].text
-            submission_data["submission_link"] = td_elems[1]
+            submission_data["submission_link"] = td_elems[1].find('a').get('href')
+            # submission_data["student_name"] = td_elems[1].text # removing student name for privacy
             submission_data["grader"] = td_elems[2].text
             submission_data["score"] = td_elems[4].text
             submissions.append(submission_data)
